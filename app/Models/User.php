@@ -27,8 +27,23 @@ class User extends Authenticatable
 
     public function role()
     {
-        return $this->belongsTo(Role::class);
+        return $this->belongsTo(Role::class, 'role_id');
     }
+
+    public function representative()
+    {
+        return $this->hasOne(Representative::class);
+    }
+
+    /**
+     * Get the addresses of the representative.
+     */
+    public function addresses()
+    {
+        return $this->hasOneThrough(RepresentativeAddress::class, Representative::class);
+    }
+
+
     /**
      * The attributes that should be hidden for serialization.
      *
